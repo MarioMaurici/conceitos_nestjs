@@ -1,0 +1,48 @@
+@URL = http://localhost:3000
+
+### AppControllerGetHello
+
+# @name AppControllerGetHello
+# @description This is a simple controller that returns a string when the /home/hello endpoint
+GET {{URL}}/home/hello
+
+### AppControllerGetExemplo
+
+# @name AppControllerGetExemplo
+# @description This is a simple controller that returns a string when the /home/exemplo endpoint
+GET {{URL}}/home/exemple
+
+### RecadosControllerFindAll
+
+# @name RecadosControllerFindAll
+# @description This is a simple controller that returns a string when the /recados endpoint
+GET {{URL}}/recados/?limit=10&offset=0
+
+### RecadosControllerFindOne
+# @name RecadosControllerFindOne
+# @description This is a simple controller that returns a string when the /recados/:id endpoint
+GET {{URL}}/recados/2
+
+### RecadosControllerCreate
+# @name RecadosControllerCreate
+# @description This is a simple controller that returns a string when the /recados/:id endpoint
+POST {{URL}}/recados/
+Content-Type: application/json
+
+{
+  "texto": "Recado de teste 3",
+  "de": "valorr",
+  "para": "Maurici"
+}
+
+###
+PATCH  {{URL}}/recados/2
+Content-Type: application/json
+
+{
+  "texto": "Recado e tals",
+  "lido": true
+}
+
+###
+DELETE   {{URL}}/recados/abc
