@@ -1,27 +1,15 @@
 @URL = http://localhost:3000
 
-### AppControllerGetHello
-
-# @name AppControllerGetHello
-# @description This is a simple controller that returns a string when the /home/hello endpoint
-GET {{URL}}/home/hello
-
-### AppControllerGetExemplo
-
-# @name AppControllerGetExemplo
-# @description This is a simple controller that returns a string when the /home/exemplo endpoint
-GET {{URL}}/home/exemple
-
 ### RecadosControllerFindAll
 
 # @name RecadosControllerFindAll
 # @description This is a simple controller that returns a string when the /recados endpoint
-GET {{URL}}/recados/?limit=10&offset=0
+GET {{URL}}/recados/
 
 ### RecadosControllerFindOne
 # @name RecadosControllerFindOne
 # @description This is a simple controller that returns a string when the /recados/:id endpoint
-GET {{URL}}/recados/2
+GET {{URL}}/recados/1
 
 ### RecadosControllerCreate
 # @name RecadosControllerCreate
@@ -36,13 +24,34 @@ Content-Type: application/json
 }
 
 ###
-PATCH  {{URL}}/recados/2
+PATCH  {{URL}}/recados/1
 Content-Type: application/json
 
 {
-  "texto": "Recado e tals",
-  "lido": true
+  "texto": "AAA e tals"
 }
 
 ###
-DELETE   {{URL}}/recados/abc
+DELETE   {{URL}}/recados/1
+
+
+
+
+### CreatePessoaDto
+# @name RecadosControllerCreate
+# @description This is a simple controller that returns a string when the /recados/:id endpoint
+PATCH {{URL}}/pessoas/2
+Content-Type: application/json
+
+{
+  "email": "mario.maurici@gmail.com",
+  "password": "PenisSenha",
+  "nome": "Mario dos Santos Maurici"
+}
+
+
+### CreatePessoaDto
+# @name RecadosControllerCreate
+# @description This is a simple controller that returns a string when the /recados/:id endpoint
+DELETE {{URL}}/pessoas/2
+Content-Type: application/json

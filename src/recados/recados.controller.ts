@@ -16,13 +16,10 @@ import { UpdateRecadoDto } from './dto/update-recado.dto';
 @Controller('recados')
 export class RecadosController {
   constructor(private readonly recadosService: RecadosService) {}
-  //Encontrar todos os recados
-  @HttpCode(HttpStatus.OK)
+
   @Get()
-  findAll(@Query() pagination: any) {
-    console.log(pagination);
+  findAll() {
     return this.recadosService.findAll();
-    //return `Retornaa todos os recados com limit: ${limit} e offset: ${offset}`;
   }
 
   //Encontrar um recado específico
@@ -38,13 +35,12 @@ export class RecadosController {
   }
 
   @Patch(':id')
-  update(@Body() updateRecadoDto: UpdateRecadoDto, @Param('id') id: string) {
-    return this.recadosService.update(Number(id), updateRecadoDto);
+  update(@Body() updateRecadoDto: UpdateRecadoDto, @Param('id', ParseIntPipe) id: number) {
+    return this.recadosService.update(id, updateRecadoDto);
   }
 
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: number) {
-    console.log(id, typeof id);
     return this.recadosService.remove(id);
   }
 }
