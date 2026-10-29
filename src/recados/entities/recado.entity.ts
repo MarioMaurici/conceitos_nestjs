@@ -8,11 +8,11 @@ export class Recado {
   @Column({ type: 'varchar', length: 255 })
   texto!: string;
 
-  @ManyToOne(() => Pessoa) //muitos recados podem ser enviados por uma pessoa
+  @ManyToOne(() => Pessoa, { onDelete: 'CASCADE', onUpdate: 'CASCADE' }) //muitos recados podem ser enviados por uma pessoa
   @JoinColumn({ name: 'de' }) //especificando o nome da coluna de relacionamento
   de!: Pessoa;
 
-  @ManyToOne(() => Pessoa) //muitos recados podem ser enviados para uma pessoa
+  @ManyToOne(() => Pessoa, { onDelete: 'CASCADE', onUpdate: 'CASCADE' }) //muitos recados podem ser enviados para uma pessoa
   @JoinColumn({ name: 'para' }) //especificando o nome da coluna de relacionamento
   para!: Pessoa;
 

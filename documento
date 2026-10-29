@@ -1,0 +1,11 @@
+Pipes
+  Validação, Transformação, Faz as duas coisas ao mesmo tempo
+ParseIntPipe : Transformação
+
+@UsePipes(ParseIntPipe): Todas as rotas do controller vao usar esse Pipes, porém isso pode dar problemas futuros
+
+O que são Pipes?
+
+
+Interceptors - 
+Algo que pode ser executado antes ou depois da chamada do metoddo

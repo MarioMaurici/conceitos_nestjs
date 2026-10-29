@@ -1,57 +1,100 @@
+﻿# Requisições para a extensão REST Client do VS Code.
+# Inicie a API com npm run start:dev e use Send Request na requisição desejada.
+# A porta padrão é 3000; ajuste a URL se a variável de ambiente PORT for diferente.
 @URL = http://localhost:3000
 
-### RecadosControllerFindAll
+# Substitua pelos IDs retornados ao criar uma pessoa ou um recado.
+@pessoaId = 1
+@recadoId = 4
 
+# Os corpos são validados: campos não previstos nos DTOs retornam HTTP 400.
+# Execute as exclusões por último, pois elas removem os registros do banco.
+
+### Home - Mensagem inicial
+# @name HomeControllerGetHello
+# Retorna HTTP 200 com o texto Hello World!.
+GET {{URL}}/home/hello
+
+### Pessoas - Criar pessoa
+# @name PessoasControllerCreate
+# Campos obrigatórios: email válido e único, password com pelo menos 5 caracteres
+# e nome entre 3 e 100 caracteres.
+# Retorna HTTP 201; dados inválidos retornam 400 e e-mail duplicado retorna 409.
+# Copie o id da resposta para pessoaId antes de consultar, atualizar ou excluir.
+POST {{URL}}/pessoas
+Content-Type: application/json
+
+{
+  "email": "marcelo.exemplo@example.com",
+  "password": "SenhaTeste123",
+  "nome": "Marcelo Exemplo"
+}
+
+### Pessoas - Buscar pessoa pelo ID
+# @name PessoasControllerFindOne
+# Retorna HTTP 200 com a pessoa encontrada.
+# Atualmente, o serviço retorna null se o ID não existir, sem lançar HTTP 404.
+GET {{URL}}/pessoas/{{pessoaId}}6
+
+### Pessoas - Atualizar pessoa parcialmente
+# @name PessoasControllerUpdate
+# nome e password são opcionais e seguem as mesmas validações da criação.
+# O DTO também aceita email, mas o serviço atual não persiste sua alteração.
+# Retorna HTTP 200; dados inválidos retornam 400 e pessoa inexistente retorna 404.
+PATCH {{URL}}/pessoas/{{pessoaId}}
+Content-Type: application/json
+
+{
+  "nome": "Maria Exemplo Atualizada",
+  "password": "NovaSenha123"
+}
+
+### Pessoas - Excluir pessoa
+# @name PessoasControllerRemove
+# Remove a pessoa e retorna HTTP 200 com os dados removidos; ID inexistente retorna 404.
+DELETE {{URL}}/pessoas/8
+
+### Recados - Listar todos os recados
 # @name RecadosControllerFindAll
-# @description This is a simple controller that returns a string when the /recados endpoint
-GET {{URL}}/recados/
+# Retorna HTTP 200 com uma lista; retorna [] quando não há recados.
+# Atualmente, não há paginação nem filtros por query string.
+GET {{URL}}/recados/?limit=10&offset=0
+Authorization: Bearer 123456
+### Recados - Criar recado
+# @name RecadosControllerCreate
+# Campo obrigatório: texto, uma string entre 2 e 255 caracteres.
+# lido começa como false e data é preenchida automaticamente pelo serviço.
+# de e para não fazem parte do DTO atual e não devem ser enviados.
+# Retorna HTTP 201; dados inválidos ou campos extras retornam 400.
+# Copie o id da resposta para recadoId antes de consultar, atualizar ou excluir.
+POST {{URL}}/recados
+Content-Type: application/json
 
-### RecadosControllerFindOne
+{
+  "texto": "Olá! Este é um recado de exemplo.",
+  "deId": 6,
+  "paraId": 7
+}
+
+### Recados - Buscar recado pelo ID
 # @name RecadosControllerFindOne
-# @description This is a simple controller that returns a string when the /recados/:id endpoint
-GET {{URL}}/recados/1
+# Retorna HTTP 200 com o recado encontrado; ID inexistente retorna 404.
+GET {{URL}}/recados/38
 
-### RecadosControllerCreate
-# @name RecadosControllerCreate
-# @description This is a simple controller that returns a string when the /recados/:id endpoint
-POST {{URL}}/recados/
+### Recados - Atualizar recado parcialmente
+# @name RecadosControllerUpdate
+# Campos opcionais: texto (entre 2 e 255 caracteres) e lido (booleano).
+# É possível enviar somente um dos campos.
+# Retorna HTTP 200; dados inválidos retornam 400 e recado inexistente retorna 404.
+PATCH {{URL}}/recados/{{recadoId}}
 Content-Type: application/json
 
 {
-  "texto": "Recado de teste 3",
-  "de": "valorr",
-  "para": "Maurici"
+  "texto": "Recado atualizado e marcado como lido.",
+  "lido": true
 }
 
-###
-PATCH  {{URL}}/recados/1
-Content-Type: application/json
-
-{
-  "texto": "AAA e tals"
-}
-
-###
-DELETE   {{URL}}/recados/1
-
-
-
-
-### CreatePessoaDto
-# @name RecadosControllerCreate
-# @description This is a simple controller that returns a string when the /recados/:id endpoint
-PATCH {{URL}}/pessoas/2
-Content-Type: application/json
-
-{
-  "email": "mario.maurici@gmail.com",
-  "password": "PenisSenha",
-  "nome": "Mario dos Santos Maurici"
-}
-
-
-### CreatePessoaDto
-# @name RecadosControllerCreate
-# @description This is a simple controller that returns a string when the /recados/:id endpoint
-DELETE {{URL}}/pessoas/2
-Content-Type: application/json
+### Recados - Excluir recado
+# @name RecadosControllerRemove
+# Remove o recado e retorna HTTP 200 com os dados removidos; ID inexistente retorna 404.
+DELETE {{URL}}/recados/{{recadoId}}

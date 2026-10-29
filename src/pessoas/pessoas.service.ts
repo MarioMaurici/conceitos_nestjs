@@ -37,6 +37,7 @@ export class PessoasService {
 
   async findOne(id: number) {
     const pessoa = await this.pessoaRepository.findOneBy({ id });
+    if (!pessoa) return this.throwNotFoundError();
     return pessoa;
   }
 
