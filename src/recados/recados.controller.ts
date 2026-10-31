@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, Req, UseInterceptors } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, Req, UseInterceptors } from '@nestjs/common';
 import { RecadosService } from './recados.service';
 import { CreateRecadoDto } from './dto/create-recado.dto';
 import { UpdateRecadoDto } from './dto/update-recado.dto';
@@ -24,6 +24,7 @@ export class RecadosController {
   @Get()
   findAll(@Query() paginationDto: PaginationDto, @Req() req: express.Request) {
     console.log('RecadosController', req['user']);
+    //throw new BadRequestException('Error e tals');
     return this.recadosService.findAll(paginationDto);
   }
 

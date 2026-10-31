@@ -23,11 +23,12 @@ GET {{URL}}/home/hello
 # Copie o id da resposta para pessoaId antes de consultar, atualizar ou excluir.
 POST {{URL}}/pessoas
 Content-Type: application/json
+Authorization: Bearer 123456
 
 {
-  "email": "marcelo.exemplo@example.com",
+  "email": "marcos.exemplo@gmail.com",
   "password": "SenhaTeste123",
-  "nome": "Marcelo Exemplo"
+  "nome": "Marcos Exemplo"
 }
 
 ### Pessoas - Buscar pessoa pelo ID
@@ -43,6 +44,7 @@ GET {{URL}}/pessoas/{{pessoaId}}6
 # Retorna HTTP 200; dados inválidos retornam 400 e pessoa inexistente retorna 404.
 PATCH {{URL}}/pessoas/{{pessoaId}}
 Content-Type: application/json
+Authorization: Bearer 123456
 
 {
   "nome": "Maria Exemplo Atualizada",
@@ -69,11 +71,12 @@ Authorization: Bearer 123456
 # Copie o id da resposta para recadoId antes de consultar, atualizar ou excluir.
 POST {{URL}}/recados
 Content-Type: application/json
+Authorization: Bearer 123456
 
 {
   "texto": "Olá! Este é um recado de exemplo.",
-  "deId": 6,
-  "paraId": 7
+  "deId": 1,
+  "paraId": 3
 }
 
 ### Recados - Buscar recado pelo ID

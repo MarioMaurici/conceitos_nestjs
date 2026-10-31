@@ -6,6 +6,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PessoasModule } from 'src/pessoas/pessoas.module';
 import { SimpleMiddleware } from 'src/common/middlewares/simple.middleware';
 import { OtherMiddleware } from 'src/common/middlewares/other.middleware';
+import { APP_FILTER, APP_GUARD } from '@nestjs/core';
+import { MyExceptionFilter } from 'src/common/filters/my-excepetion.filter';
+import { IsAdminGuard } from 'src/common/guards/is-admin.guard';
 
 @Module({
   imports: [
@@ -23,10 +26,20 @@ import { OtherMiddleware } from 'src/common/middlewares/other.middleware';
     PessoasModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_FILTER,
+      useClass: MyExceptionFilter,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: IsAdminGuard,
+    },
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(SimpleMiddleware, OtherMiddleware).forRoutes({ path: '*', method: RequestMethod.ALL });
+    consumer.apply(SimpleMiddleware,OtherMiddleware).forRoutes({ path: '*', method: RequestMethod.ALL });
   }
 }
