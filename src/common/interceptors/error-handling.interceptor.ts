@@ -8,7 +8,6 @@ export class ErrorHandlingInterceptor implements NestInterceptor {
     context: ExecutionContext, //Informações sobre o contexto onde a requisição foi a executada (controller,http,request,response,etc)
     next: CallHandler<any>,
   ) {
-    console.log('ErrorHandlingInterceptor executado antes');
 
     //await new Promise(resolve => setTimeout(resolve, 3000));
     return next.handle().pipe(

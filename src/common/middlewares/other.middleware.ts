@@ -14,9 +14,7 @@ export class OtherMiddleware implements NestMiddleware {
 
     res.setHeader('Cabecalho', 'Do Middleware');
     next();
-    console.log('OtherMiddleware: Tchauuu');
     res.on('finish', () => {
-      console.log('SimpleMiddleware: Finalizou e recebeu a resposta');
     });
   }
 }

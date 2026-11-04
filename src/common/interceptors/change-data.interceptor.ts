@@ -4,7 +4,6 @@ import { map, Observable } from 'rxjs';
 @Injectable()
 export class ChanceDataInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    console.log('ChanceDataInterceptor executado antes');
 
     return next.handle().pipe(
       map((data: unknown) => {
