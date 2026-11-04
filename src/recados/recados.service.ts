@@ -6,6 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PessoasService } from 'src/pessoas/pessoas.service';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
+import { RecadosUtil } from './recados.util';
 
 @Injectable()
 export class RecadosService {
@@ -13,15 +14,15 @@ export class RecadosService {
     @InjectRepository(Recado)
     private readonly recadoRepository: Repository<Recado>,
     private readonly pessoaService: PessoasService,
+    private readonly recadosUtil: RecadosUtil,
   ) {}
-
-  private recados: Recado[] = [];
 
   throwNotFoundError: () => never = () => {
     throw new NotFoundException('Recado não encontrado');
   };
 
   async findAll(paginationDto?: PaginationDto) {
+    console.log(this.recadosUtil.inverteString('Recados'));
     const { limit, offset } = paginationDto || { limit: 10, offset: 0 };
     const recados = await this.recadoRepository.find({
       relations: { de: true, para: true },
