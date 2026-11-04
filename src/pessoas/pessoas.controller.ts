@@ -1,11 +1,18 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Inject } from '@nestjs/common';
 import { PessoasService } from './pessoas.service';
 import { CreatePessoaDto } from './dto/create-pessoa.dto';
 import { UpdatePessoaDto } from './dto/update-pessoa.dto';
+import { RecadosUtil } from 'src/recados/recados.util';
+import { SERVER_NAME } from 'src/common/constants/server-name.constant';
 
 @Controller('pessoas')
 export class PessoasController {
-  constructor(private readonly pessoasService: PessoasService) {}
+  constructor(
+    private readonly pessoasService: PessoasService,
+    private readonly recadosUtil: RecadosUtil,
+    @Inject(SERVER_NAME)
+    private readonly serverName: string,
+  ) {}
 
   @Post()
   create(@Body() createPessoaDto: CreatePessoaDto) {
@@ -14,6 +21,7 @@ export class PessoasController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
+    console.log('Inversão de String:', this.recadosUtil.inverteString('Recados'));
     return this.pessoasService.findOne(+id);
   }
 
