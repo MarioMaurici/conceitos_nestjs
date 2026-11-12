@@ -5,30 +5,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Recado } from './entities/recado.entity';
 import { PessoasModule } from 'src/pessoas/pessoas.module';
 import { RecadosUtil } from './recados.util';
-import { RegexFactory } from 'src/common/regex/regex.factory';
-import { ONLY_LOWER_CASE_LETTERS_REGEX, REMOVE_SPACES_REGEX } from './recados.constants';
-
+import { MyDynamicModule } from 'src/my-dynamic/my-dynamic.module';
 @Module({
-  imports: [TypeOrmModule.forFeature([Recado]), forwardRef(() => PessoasModule)],
+  imports: [TypeOrmModule.forFeature([Recado]), forwardRef(() => PessoasModule), MyDynamicModule.register({ apiKey: 'your-api-key', apiUrl: 'https://api.example.com' })],
   controllers: [RecadosController],
-  providers: [
-    RecadosService,
-    RecadosUtil,
-    RegexFactory,
-    {
-      provide: REMOVE_SPACES_REGEX, //token de injeção de dependência
-      useFactory: (regexFactory: RegexFactory) => {
-        return regexFactory.create('RemoveSpacesRegex');
-      },
-      inject: [RegexFactory],
-    },
-    {
-      provide: ONLY_LOWER_CASE_LETTERS_REGEX, //token de injeção de dependência
-      useFactory: (regexFactory: RegexFactory) => {
-        return regexFactory.create('OnlyLowerCaseLettersRegex');
-      },
-      inject: [RegexFactory],
-    },
-  ],
+  providers: [RecadosService, RecadosUtil],
 })
 export class RecadosModule {}
