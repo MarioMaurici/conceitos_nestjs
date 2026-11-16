@@ -4,11 +4,12 @@ import { HashingService } from './hashing/hashing.service';
 
 @Global() // Pode ser utilizado na aplicação inteira, sem precisar importar em cada módulo
 @Module({
-    providers: [
-        {
-            provide: HashingService,
-            useClass: BcryptService,
-        }
-    ]
+  providers: [
+    {
+      provide: HashingService,
+      useClass: BcryptService,
+    },
+  ],
+  exports: [HashingService],
 })
 export class AuthModule {}

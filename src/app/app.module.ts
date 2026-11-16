@@ -5,6 +5,7 @@ import { RecadosModule } from 'src/recados/recados.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PessoasModule } from 'src/pessoas/pessoas.module';
 import { ConfigModule } from 'node_modules/@nestjs/config/dist/config.module';
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { ConfigModule } from 'node_modules/@nestjs/config/dist/config.module';
     }),
     RecadosModule,
     PessoasModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
