@@ -7,6 +7,7 @@ import { Repository } from 'typeorm';
 import { PessoasService } from 'src/pessoas/pessoas.service';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
 import { RecadosUtil } from './recados.util';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class RecadosService {
@@ -15,7 +16,11 @@ export class RecadosService {
     private readonly recadoRepository: Repository<Recado>,
     private readonly pessoaService: PessoasService,
     private readonly recadosUtil: RecadosUtil,
-  ) {}
+    private readonly ConfigService: ConfigService,
+  ) {
+    const databaseUsername = this.ConfigService.get<string>('DATABASE_USERNAME');
+    console.log('Database Username:', databaseUsername);
+  }
 
   throwNotFoundError: () => never = () => {
     throw new NotFoundException('Recado não encontrado');
