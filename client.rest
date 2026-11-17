@@ -42,7 +42,7 @@ GET {{URL}}/pessoas/{{pessoaId}}6
 # nome e password são opcionais e seguem as mesmas validações da criação.
 # O DTO também aceita email, mas o serviço atual não persiste sua alteração.
 # Retorna HTTP 200; dados inválidos retornam 400 e pessoa inexistente retorna 404.
-PATCH {{URL}}/pessoas/{{pessoaId}}
+PATCH {{URL}}/pessoas/9
 Content-Type: application/json
 Authorization: Bearer 123456
 
@@ -101,3 +101,15 @@ Content-Type: application/json
 # @name RecadosControllerRemove
 # Remove o recado e retorna HTTP 200 com os dados removidos; ID inexistente retorna 404.
 DELETE {{URL}}/recados/{{recadoId}}
+
+
+### Auth - Login
+# @name AuthControllerLogin
+# Retorna HTTP 200 com um token de autenticação válido.
+POST {{URL}}/auth/login
+Content-Type: application/json
+
+{
+  "email":"aaaaa@exemple.com",
+  "password":"123456"
+}
