@@ -110,6 +110,6 @@ POST {{URL}}/auth/login
 Content-Type: application/json
 
 {
-  "email":"aaaaa@exemple.com",
-  "password":"123456"
+  "email":"marcos.exemplo@gmail.com",
+  "password":"NovaSenha123"
 }
